@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ritika's Birthday Puzzle</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      color: white;
+      padding: 20px;
+    }
+    .container {
+      margin: 20px auto;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      display: none; /* All sections are hidden by default */
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .active {
+      display: block; /* Show the active puzzle/section */
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(to right, #ff4e50, #fc6c85);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+      margin-top: 20px;
+    }
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #ff6b81, #ff4e50);
+    }
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+      color: yellow;
+      min-height: 30px; /* Reserve space for feedback text */
+    }
+    .hearts {
+      color: red;
+      font-size: 24px;
+    }
+    .big-heart {
+      font-size: 50px;
+      color: #ff0000;
+      margin: 20px 0;
+    }
+    .lots-of-hearts {
+      font-size: 30px;
+      color: #ff0000;
+      animation: floatHearts 2s infinite alternate;
+    }
+    @keyframes floatHearts {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Hi Ritika!</h1>
+  <p>A game from Anshi’s side — firstly, a very Happy Birthday!</p>
+
+  <!-- Audio for final surprise -->
+  <!-- IMPORTANT: Provide/record your own 'happy_birthday_ritika.mp3' and place it in the same folder -->
+  <audio id="birthdayAudio" src="happy_birthday_ritika.mp3" preload="auto"></audio>
+
+  <!-- Intro Section -->
+  <div id="intro" class="container active">
+    <p>Let's begin the game. You’ll face a few fun puzzles — answer correctly to move on!</p>
+    <button onclick="goToPuzzle(1)">Start Puzzle</button>
+  </div>
+
+  <!-- Puzzle 1 -->
+  <div id="puzzle1" class="container">
+    <h2>Puzzle 1</h2>
+    <p>Which was the most irritating moment ever for me?</p>
+    <form id="puzzle1Form">
+      <!-- Checkboxes (multiple correct) -->
+      <label>
+        <input type="checkbox" name="p1" value="1" />
+        When I asked Ritika “Is this a proposal to me?”
+      </label><br/><br/>
+      <label>
+        <input type="checkbox" name="p1" value="2" />
+        When you took 2 hours to reply after my saying “yes”
+      </label><br/><br/>
+      <label>
+        <input type="checkbox" name="p1" value="3" />
+        When I miss you and just want to grab you in my arms but can’t because you are so far
+      </label><br/>
+    </form>
+    <div class="feedback" id="puzzle1Feedback"></div>
+    <button onclick="checkPuzzle1()">Submit</button>
+  </div>
+
+  <!-- Puzzle 2 -->
+  <div id="puzzle2" class="container">
+    <h2>Puzzle 2</h2>
+    <p>Guess the color you like and I like (the right guess moves you to the next level!)</p>
+    <form id="puzzle2Form">
+      <!-- Radio (single correct) -->
+      <label>
+        <input type="radio" name="p2" value="1" />
+        Pink, Blue
+      </label><br/><br/>
+      <label>
+        <input type="radio" name="p2" value="2" />
+        Pink, Black
+      </label><br/><br/>
+      <label>
+        <input type="radio" name="p2" value="3" />
+        Black, Blue
+      </label><br/><br/>
+      <label>
+        <input type="radio" name="p2" value="4" />
+        Pink, Pink
+      </label><br/>
+    </form>
+    <div class="feedback" id="puzzle2Feedback"></div>
+    <button onclick="checkPuzzle2()">Submit</button>
+  </div>
+
+  <!-- Puzzle 3 -->
+  <div id="puzzle3" class="container">
+    <h2>Puzzle 3</h2>
+    <p>Whom do you love the most? Don’t lie haa 😒😒</p>
+    <form id="puzzle3Form">
+      <!-- Checkboxes (multiple correct) -->
+      <label>
+        <input type="checkbox" name="p3" value="1" />
+        Anshi Kumar Singh 😂
+      </label><br/><br/>
+      <label>
+        <input type="checkbox" name="p3" value="2" />
+        Your little sweet babyy
+      </label><br/><br/>
+      <label>
+        <input type="checkbox" name="p3" value="3" />
+        Your series' 😒
+      </label><br/><br/>
+      <label>
+        <input type="checkbox" name="p3" value="4" />
+        Your work..
+      </label><br/>
+    </form>
+    <div class="feedback" id="puzzle3Feedback"></div>
+    <button onclick="checkPuzzle3()">Submit</button>
+  </div>
+
+  <!-- Puzzle 4 -->
+  <div id="puzzle4" class="container">
+    <h2>Final Puzzle</h2>
+    <p>Who is the most beautiful, gorgeous, and pure soul in the world? <br/>Name the person!</p>
+    <input type="text" id="puzzle4Answer" placeholder="Type your answer here" />
+    <div class="feedback" id="puzzle4Feedback"></div>
+    <button onclick="checkPuzzle4()">Submit</button>
+  </div>
+
+  <!-- Final Message -->
+  <div id="finalMessage" class="container">
+    <h2 class="big-heart">❤❤❤</h2>
+    <h2>Happy Birthday, Ritika!</h2>
+    <p>
+      A big heart full of love for you! May your day be as bright as your smile,<br/>
+      and may our love keep growing stronger. — From Anshi  
+    </p>
+    <p class="lots-of-hearts">❤❤❤❤❤❤❤❤❤❤❤</p>
+  </div>
+
+  <script>
+    // Helper: Show a specific puzzle section, hide others
+    function goToPuzzle(num) {
+      // Hide all .container sections
+      const sections = document.querySelectorAll('.container');
+      sections.forEach(sec => sec.classList.remove('active'));
+
+      // Show the requested puzzle
+      document.getElementById('puzzle' + num).classList.add('active');
+    }
+
+    // Hide all containers except intro at start
+    function init() {
+      const sections = document.querySelectorAll('.container');
+      sections.forEach(sec => sec.classList.remove('active'));
+      document.getElementById('intro').classList.add('active');
+    }
+
+    // Puzzle 1 (Checkbox) -> Right answers: 1 & 3
+    function checkPuzzle1() {
+      const checkboxes = document.querySelectorAll('input[name=\"p1\"]:checked');
+      let values = Array.from(checkboxes).map(cb => cb.value);
+      values.sort(); // Sort so we can compare easily
+      const puzzle1Feedback = document.getElementById('puzzle1Feedback');
+
+      // Expect exactly ['1','3']
+      if (JSON.stringify(values) === JSON.stringify(['1','3'])) {
+        puzzle1Feedback.style.color = 'lightgreen';
+        puzzle1Feedback.innerText = 'Correct! Moving on...';
+        setTimeout(() => {
+          goToPuzzle(2);
+        }, 1000);
+      } else {
+        puzzle1Feedback.style.color = 'yellow';
+        puzzle1Feedback.innerHTML = 'Oops, not quite right. <span class=\"hearts\">♥♥</span> Try again!';
+      }
+    }
+
+    // Puzzle 2 (Radio) -> Right answer: 2
+    function checkPuzzle2() {
+      const radio = document.querySelector('input[name=\"p2\"]:checked');
+      const puzzle2Feedback = document.getElementById('puzzle2Feedback');
+
+      if (!radio) {
+        puzzle2Feedback.innerHTML = 'Please select an option!';
+        return;
+      }
+
+      if (radio.value === '2') {
+        puzzle2Feedback.style.color = 'lightgreen';
+        puzzle2Feedback.innerText = 'Correct! Moving on...';
+        setTimeout(() => {
+          goToPuzzle(3);
+        }, 1000);
+      } else {
+        puzzle2Feedback.style.color = 'yellow';
+        puzzle2Feedback.innerHTML = 'Wrong guess. <span class=\"hearts\">♥♥</span> Try again!';
+      }
+    }
+
+    // Puzzle 3 (Checkbox) -> Right answers: 1 & 2
+    function checkPuzzle3() {
+      const checkboxes = document.querySelectorAll('input[name=\"p3\"]:checked');
+      let values = Array.from(checkboxes).map(cb => cb.value);
+      values.sort();
+      const puzzle3Feedback = document.getElementById('puzzle3Feedback');
+
+      // We expect exactly ['1','2']
+      if (JSON.stringify(values) === JSON.stringify(['1','2'])) {
+        puzzle3Feedback.style.color = 'lightgreen';
+        puzzle3Feedback.innerText = 'Correct! Moving on...';
+        setTimeout(() => {
+          goToPuzzle(4);
+        }, 1000);
+      } else {
+        puzzle3Feedback.style.color = 'yellow';
+        puzzle3Feedback.innerHTML = 'Wrong choices. <span class=\"hearts\">♥♥</span> Try again!';
+      }
+    }
+
+    // Puzzle 4 (Text Input) -> Accept 'ritika' or 'honey' (case-insensitive)
+    function checkPuzzle4() {
+      const answer = document.getElementById('puzzle4Answer').value.trim().toLowerCase();
+      const puzzle4Feedback = document.getElementById('puzzle4Feedback');
+
+      if (answer === 'ritika' || answer === 'honey') {
+        puzzle4Feedback.style.color = 'lightgreen';
+        puzzle4Feedback.innerText = 'You got it!';
+        setTimeout(() => {
+          showFinalMessage();
+        }, 1000);
+      } else {
+        puzzle4Feedback.style.color = 'yellow';
+        puzzle4Feedback.innerHTML = 'Wrong answer. <span class=\"hearts\">♥♥</span> Guess again!';
+      }
+    }
+
+    function showFinalMessage() {
+      // Hide all containers
+      const sections = document.querySelectorAll('.container');
+      sections.forEach(sec => sec.classList.remove('active'));
+      // Show final message
+      document.getElementById('finalMessage').classList.add('active');
+
+      // Play audio
+      const audio = document.getElementById('birthdayAudio');
+      audio.play().catch(err => {
+        // Some browsers block autoplay without user interaction
+        console.log('Audio playback failed:', err);
+      });
+    }
+
+    init(); // Initialize
+  </script>
+</body>
+</html>
