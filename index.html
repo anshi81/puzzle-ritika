@@ -5,7 +5,7 @@
     <title>Ritika's Birthday Puzzle</title>
     <style>
         body {
-            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             text-align: center;
             background: linear-gradient(to right, #ff758c, #ff7eb3);
             color: white;
@@ -19,54 +19,67 @@
             border-radius: 15px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e60073;
+        }
         .hidden {
             display: none;
         }
-        #finalMessage img {
+        img {
             max-width: 100%;
+            height: auto;
             border-radius: 10px;
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Hi Ritika! A game from Anshi's side 🎉</h1>
-    <p>First, a very Happy Birthday! Now, let’s play...</p><div class="container" id="question1">
-    <p>What was the most irritating moment ever for me?</p>
-    <button onclick="checkAnswer(1, true)">1) When I asked Ritika 'Is this a proposal to me?'</button>
-    <button onclick="checkAnswer(1, false)">2) When you took 2 hours to reply after I said yes</button>
-    <button onclick="checkAnswer(1, true)">3) When I miss you and just wanted to grab you in my arms but I can't because you are so far</button>
+    <h1>Hi Ritika, a game from Anshi's side! 🎉</h1>
+    <p>Firstly, a very Happy Birthday! 🎂❤</p><div class="container" id="question1">
+    <p>Which was the most irritating moment ever for me?</p>
+    <button onclick="checkAnswer(1, true)">1. When I asked Ritika if this was a proposal to me</button>
+    <button onclick="checkAnswer(1, false)">2. When you took 2 hours to reply after my 'Yes'</button>
+    <button onclick="checkAnswer(1, true)">3. When I missed you but couldn't hold you</button>
 </div>
 
 <div class="container hidden" id="question2">
-    <p>Guess the color you like and I like.</p>
-    <button onclick="checkAnswer(2, false)">1) Pink, Blue</button>
-    <button onclick="checkAnswer(2, true)">2) Pink, Black</button>
-    <button onclick="checkAnswer(2, false)">3) Black, Blue</button>
-    <button onclick="checkAnswer(2, false)">4) Pink, Pink</button>
+    <p>Guess the color we both like:</p>
+    <button onclick="checkAnswer(2, false)">1. Pink, Blue</button>
+    <button onclick="checkAnswer(2, true)">2. Pink, Black</button>
+    <button onclick="checkAnswer(2, false)">3. Black, Blue</button>
+    <button onclick="checkAnswer(2, false)">4. Pink, Pink</button>
 </div>
 
 <div class="container hidden" id="question3">
-    <p>Who do you love the most? Don't lie haa 😒😒</p>
-    <button onclick="checkAnswer(3, true)">1) Anshi Kumar Singh 😂</button>
-    <button onclick="checkAnswer(3, true)">2) Your little sweet baby</button>
-    <button onclick="checkAnswer(3, false)">3) Your series' 😒</button>
-    <button onclick="checkAnswer(3, false)">4) Your work</button>
+    <p>Whom do you love the most? Don't lie! 😒</p>
+    <button onclick="checkAnswer(3, true)">1. Anshi Kumar Singh 😂</button>
+    <button onclick="checkAnswer(3, true)">2. Your little sweet baby</button>
+    <button onclick="checkAnswer(3, false)">3. Your series' 😒</button>
+    <button onclick="checkAnswer(3, false)">4. Your work</button>
 </div>
 
 <div class="container hidden" id="question4">
-    <p>Who is the most beautiful, gorgeous, and pure soul in the world?</p>
-    <input type="text" id="finalAnswer" placeholder="Type the name here">
+    <p>Who is the most beautiful, gorgeous, and pure soul in the world? 🤔</p>
+    <input type="text" id="finalAnswer" placeholder="Type your answer here...">
     <button onclick="checkFinalAnswer()">Submit</button>
 </div>
 
-<div class="container hidden" id="finalMessage">
+<div class="container hidden" id="result">
     <h2>🎉 Happy Birthday Ritika! 🎉</h2>
-    <p>Lots of love and hugs! ❤❤❤</p>
-    <img src="ritika_birthday.jpg" alt="Happy Birthday Ritika!">
+    <p>Lots of love and happiness to you! ❤</p>
+    <img src="ritika_birthday.jpg" alt="Ritika's Birthday Surprise">
 </div>
 
-<audio id="birthdayAudio" src="Happy_birthday_ritika.mp3" preload="auto"></audio>
+<audio id="birthdayAudio" src="Happy_birthday_ritika.mp3"></audio>
 
 <script>
     let currentQuestion = 1;
@@ -74,28 +87,20 @@
         if (isCorrect) {
             document.getElementById(question${question}).classList.add("hidden");
             currentQuestion++;
-            let nextQuestion = document.getElementById(question${currentQuestion});
-            if (nextQuestion) {
-                nextQuestion.classList.remove("hidden");
-            }
+            document.getElementById(question${currentQuestion}).classList.remove("hidden");
         } else {
-            alert("Wrong answer! Try again ❤");
+            alert("Wrong choice! Try again 😜");
         }
     }
-
+    
     function checkFinalAnswer() {
-        let answer = document.getElementById("finalAnswer").value.toLowerCase();
-        if (answer === "ritika" || answer === "honey") {
+        const answer = document.getElementById("finalAnswer").value.toLowerCase();
+        if (answer.includes("ritika") || answer.includes("honey")) {
             document.getElementById("question4").classList.add("hidden");
-            document.getElementById("finalMessage").classList.remove("hidden");
-            
-            // Play the birthday message
-            const audio = document.getElementById("birthdayAudio");
-            audio.play().catch(err => {
-                console.log("Audio playback failed: ", err);
-            });
+            document.getElementById("result").classList.remove("hidden");
+            document.getElementById("birthdayAudio").play();
         } else {
-            alert("Wrong answer! Try again 😜");
+            alert("Wrong answer! Try again 😒");
         }
     }
 </script>
